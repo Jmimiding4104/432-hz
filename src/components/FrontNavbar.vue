@@ -1,8 +1,12 @@
 <template>
   <div class="front-navbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">貳伍陸赫茲</router-link>
+        <div class="navbar-logo">
+          <router-link class="navbar-brand" to="/"
+            ><img src="../../src/assets/logo.png"
+          /></router-link>
+        </div>
         <button
           class="navbar-toggler"
           type="button"
@@ -34,7 +38,16 @@
 </template>
 
 <style>
+.navbar-logo {
+  margin-left: 32px;
+}
+
+.container-fluid img {
+  height: 40px;
+}
+
 .navbar-collapse {
   justify-content: flex-end;
+  margin-right: 32px;
 }
 </style>
