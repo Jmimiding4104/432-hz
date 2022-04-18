@@ -38,6 +38,10 @@
 </template>
 
 <style>
+.front-navbar {
+  z-index: 999;
+}
+
 .navbar-logo {
   margin-left: 32px;
 }
