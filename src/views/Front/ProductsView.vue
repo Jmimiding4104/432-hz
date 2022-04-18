@@ -5,7 +5,7 @@
         <h2>活動與商品</h2>
       </div>
     </div>
-    <div class="product-wrap">
+    <div class="products-wrap">
       <div class="products-link">
         <router-link class="nav-link" id="link" to="/">首頁</router-link><p>> 活動與商品</p>
       </div>
@@ -54,7 +54,7 @@
   border-radius: 10px;
 }
 
-.product-wrap {
+.products-wrap {
   margin-left: 5%;
   margin-right: 5%;
 }
