@@ -103,69 +103,54 @@
       </div>
       <div class="fillin-products">
         <h3><i class="bi bi-check2-circle"></i>我的選擇</h3>
-        <div class="order-item" v-for="item in cartData.carts" :key="item.id">
+        <div class="fillin-products-border">
+          <div class="order-item" v-for="item in cartData.carts" :key="item.id">
+            <div
+              class="order-img"
+              :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
+            ></div>
+            <div class="order-item-descript">
+              <div class="order-item-descript-1">
+                <p>{{ item.product.title }}</p>
+              </div>
+              <div class="order-item-descript-2">
+                <p>x{{ item.qty }}{{ item.product.unit }}</p>
+                <p>${{ item.final_total }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="cart-products-list-total-price">
           <div
-            class="order-img"
-            :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
-          ></div>
-          <div class="order-item-descript">
-            <div class="order-item-descript-1">
-              <p>{{ item.product.title }}</p>
-            </div>
-            <div class="order-item-descript-2">
-              <p>x{{ item.qty }}{{ item.product.unit }}</p>
-              <p>${{ item.final_total }}</p>
+            class="cart-products-list-price"
+            v-if="cartDatatotal === cartDatafinal_total"
+          >
+            <div class="cart-products-list-total">總金額 NT{{ cartData.total }}</div>
+          </div>
+          <div class="cart-products-list-sale-price" v-else>
+            <div class="cart-products-list-total">原金額 NT{{ cartData.total }}</div>
+            <div class="cart-products-list-final_total">
+              原金額+捐款 NT{{ parseInt(this.cartData.final_total) }}
             </div>
           </div>
-        </div>
-        <div class="cart-products-list-total-price">
-        <div
-          class="cart-products-list-price"
-          v-if="cartDatatotal === cartDatafinal_total"
-        >
-          <div class="cart-products-list-total">總金額 NT{{ cartData.total }}</div>
-        </div>
-        <div class="cart-products-list-sale-price" v-else>
-          <div class="cart-products-list-total">原金額 NT{{ cartData.total }}</div>
-          <div class="cart-products-list-final_total">
-            原金額+捐款 NT{{ parseInt(this.cartData.final_total) }}
           </div>
-        </div>
-        </div>
-        <div class="payorder-next">
-          <button
-            type="submit"
-            class="btn btn-outline-primary"
-            @click.prevent="this.$router.push('/Products')"
-            v-show="orderStatus === false"
-          >
-            繼續購物
-          </button>
-          <button
-            class="btn btn-primary"
-            @click.prevent="sendOrder()"
-            v-show="orderStatus === false"
-          >
-            結帳
-          </button>
-          <button
-            type="submit"
-            class="btn btn-outline-primary"
-            @click.prevent="payOrder()"
-            v-show="orderStatus === true"
-          >
-            繼續購物
-          </button>
-          <button
-            class="btn btn-primary"
-            @click.prevent="payOrder()"
-            v-show="orderStatus === true"
-          >
-            前往付款
-          </button>
         </div>
       </div>
     </div>
+              <div class="payorder-next">
+            <button
+              type="submit"
+              class="btn btn-outline-primary"
+              @click.prevent="this.$router.push('/Products')"
+            >
+              繼續購物
+            </button>
+            <button
+              class="btn btn-primary"
+              @click.prevent="sendOrder()"
+            >
+              結帳
+            </button>
+          </div>
   </div>
 </template>
 
@@ -210,6 +195,7 @@
 
 .order-fillin-view {
   display: flex;
+  flex-direction: row-reverse;
   margin-top: 2rem;
 }
 
@@ -227,6 +213,8 @@
 }
 
 .fillin-products {
+  display: flex;
+  flex-direction: column;
   width: 50%;
   padding-left: 3rem;
   padding-right: 3rem;
@@ -236,6 +224,12 @@
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
+}
+
+.fillin-products-border {
+  border: 1px solid black;
+  padding: 1rem;
+  border-radius: 5px;
 }
 
 .order-item {
@@ -276,6 +270,8 @@
 .payorder-next {
   display: flex;
   justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 </style>
 
@@ -285,7 +281,6 @@ export default {
     return {
       cartData: '',
       orderId: '',
-      orderStatus: false,
       form: {
         user: {
           name: '',
@@ -305,7 +300,6 @@ export default {
         .get(Url)
         .then((res) => {
           this.cartData = res.data.data
-          console.log(this.cartData)
         })
         .catch((err) => {
           alert(err.data.message)
@@ -326,8 +320,8 @@ export default {
         .then((res) => {
           this.orderId = res.data.orderId
           alert(res.data.message)
-          this.orderStatus = true
-          this.getOrder()
+          console.log(res)
+          this.$router.push(`/Complete/${this.orderId}`)
         })
         .catch((err) => {
           console.log(err)

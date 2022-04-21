@@ -24,6 +24,10 @@ const routes = [
       {
         path: 'Order',
         component: () => import('../views/Front/OrderView.vue')
+      },
+      {
+        path: 'Complete/:id',
+        component: () => import('../views/Front/CompleteView.vue')
       }
     ]
   }
