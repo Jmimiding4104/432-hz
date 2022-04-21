@@ -37,15 +37,27 @@
           <div class="product-numbers">
             <div class="input-group">
               <select class="form-select" v-model="qty">
+                <option value="" disabled selected>--請選擇--</option>
                 <option :value="num" v-for="num in 100" :key="`${num}${product.id}`">{{num}}</option>
               </select>
               <span class="input-group-text">{{product.unit}}</span>
             </div>
           </div>
           <div class="product-btn">
-            <button class="btn btn-primary">加入購物車</button>
+            <button class="btn btn-primary" type="button" @click="addToCart(product.id, qty)">加入購物車</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="product-donate-text">
+      <h3><i class="bi bi-gift"></i>若您欲幫助我們<i class="bi bi-gift"></i></h3>
+      <div class="product-donate-text-donate">
+        <h4>donate10</h4><i class="bi bi-arrow-return-left"></i>
+      </div>
+      <div class="product-donate-text-p">
+        <p>歡迎於產品列表點選捐款選項，亦於結帳頁面輸入此donate10優惠碼，即可捐贈總金額之10%予本機構。</p>
+        <p>我們會將您捐贈金額之50%用於維持本機構運作，另50%將捐贈於外機構，若您希望捐贈額全數協助我們機構運作，可於訂單備註相關內容。</p>
+        <p>所有金流將公布於本機構Facebook頁面。</p>
       </div>
     </div>
   </div>
@@ -76,7 +88,7 @@
 
 .item-container-img {
   width: 45%;
-  height: 25rem;
+  height: 27rem;
   background-position: center;
   background-size: cover;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -151,6 +163,49 @@
   margin-top: 0.5rem;
   width: 20rem;
 }
+
+.product-donate-text {
+  margin-top: 10rem;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-donate-text {
+  font-weight: 600;
+}
+
+.product-donate-text h3{
+  text-align: center;
+  font-weight: 600;
+  font-size: 2rem;
+  color: rgb(49, 114, 68);
+}
+
+.product-donate-text-donate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+}
+
+.product-donate-text-donate h4 {
+  font-weight: 600;
+}
+
+.product-donate-text-donate i {
+  font-size: 1.5rem;
+  position: relative;
+  bottom: 5px;
+}
+
+.product-donate-text-p {
+  border: 5px solid rgb(49, 114, 68);
+  padding: 1rem;
+  border-radius: 5px;
+}
 </style>
 
 <script>
@@ -169,7 +224,6 @@ export default {
       this.$http.get(Url)
         .then((res) => {
           this.product = res.data.product
-          console.log(this.product)
         })
     },
     addToCart (id, qty = 1) {

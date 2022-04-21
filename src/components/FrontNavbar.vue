@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="navbar-logo">
           <router-link class="navbar-brand" to="/"
-            ><img src="../../src/assets/logo.png"
+            ><img style="height: 100%" src="../../src/assets/logo.png"
           /></router-link>
         </div>
         <button
@@ -30,6 +30,15 @@
                 登入後台
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" id="link" to="/Cart">
+                <i class="bi bi-bag">
+                  <span class="position-absolute top-10 start-90 translate-middle badge rounded-pill bg-danger">
+                    {{carts.length}}
+                  </span>
+                </i>
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -44,6 +53,11 @@
 
 .navbar-logo {
   margin-left: 32px;
+  height: 52px;
+}
+
+.navbar-logo img {
+  width: 100%;
 }
 
 .container-fluid img {
@@ -54,4 +68,39 @@
   justify-content: flex-end;
   margin-right: 32px;
 }
+
+.nav-item {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-left: 2rem;
+}
+
+.nav-item span {
+  position: relative;
+  top: 20px;
+}
 </style>
+
+<script>
+import emitter from '@/libs/emitter'
+export default {
+  data () {
+    return {
+      carts: {}
+    }
+  },
+  methods: {
+    getData () {
+      const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.get(Url)
+        .then((res) => {
+          this.carts = res.data.data.carts
+        })
+    }
+  },
+  mounted () {
+    this.getData()
+    emitter.on('get-cart', () => this.getData())
+  }
+}
+</script>

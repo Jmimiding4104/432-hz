@@ -23,7 +23,9 @@
                 </div>
               </div>
               <div class="card-body-btn">
-                <a href="#" class="btn btn-primary" title="加入購物車"><i class="bi bi-bag-plus"></i></a>
+                <button type="button" class="btn btn-primary" title="加入購物車" @click="addToCart(item.id)">
+                  <i class="bi bi-bag-plus"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -144,6 +146,7 @@
 </style>
 
 <script>
+import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
@@ -157,6 +160,22 @@ export default {
         .then((res) => {
           this.products = res.data.products
           console.log(this.products)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    addToCart (id, qty = 1) {
+      const data = {
+        product_id: id,
+        qty
+      }
+      const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.post(Url, { data })
+        .then((res) => {
+          this.isLoading = ''
+          emitter.emit('get-cart')
+          alert('成功加入購物車')
         })
         .catch((err) => {
           console.log(err)
