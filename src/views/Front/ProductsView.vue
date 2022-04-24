@@ -1,4 +1,5 @@
 <template>
+<IsLoading style="z-index: 1000" :active="isLoading"></IsLoading>
   <div class="wrap">
     <div class="products-img">
       <div class="producrs-title">
@@ -150,22 +151,25 @@ import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
+      isLoading: false,
       products: []
     }
   },
   methods: {
     getData () {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/products/all`
       this.$http.get(Url)
         .then((res) => {
           this.products = res.data.products
-          console.log(this.products)
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err, '載入資料')
         })
     },
     addToCart (id, qty = 1) {
+      this.isLoading = true
       const data = {
         product_id: id,
         qty
@@ -173,12 +177,13 @@ export default {
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.post(Url, { data })
         .then((res) => {
-          this.isLoading = ''
           emitter.emit('get-cart')
-          alert('成功加入購物車')
+          this.$httpMessageState(res, '加入購物車')
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err, '加入購物車')
+          this.isLoading = false
         })
     }
   },

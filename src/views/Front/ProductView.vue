@@ -1,4 +1,5 @@
 <template>
+<IsLoading style="z-index: 1000" :active="isLoading"></IsLoading>
   <div class="product-wrap">
     <div class="product-link">
       <router-link class="nav-link" id="link" to="/">首頁</router-link><span>></span><router-link class="nav-link" id="link" to="/Products">活動與產品</router-link><p>> 活動與商品</p>
@@ -71,7 +72,7 @@
 
 .product-link {
   height: 1rem;
-  padding-top: 4rem;
+  padding-top: 5rem;
   width: 100%;
   display: flex;
   font-size: 1.2rem;
@@ -213,20 +214,27 @@ import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
+      isLoading: false,
       product: {},
       qty: ''
     }
   },
   methods: {
     getData () {
+      this.isLoading = true
       const { id } = this.$route.params
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`
       this.$http.get(Url)
         .then((res) => {
           this.product = res.data.product
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$httpMessageState(err, '載入資料')
         })
     },
     addToCart (id, qty = 1) {
+      this.isLoading = true
       const data = {
         product_id: id,
         qty
@@ -237,10 +245,12 @@ export default {
         .then((res) => {
           this.isLoading = ''
           emitter.emit('get-cart')
-          alert('成功加入購物車')
+          this.$httpMessageState(res, '加入購物車')
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err, '加入購物車')
+          this.isLoading = false
         })
     }
   },

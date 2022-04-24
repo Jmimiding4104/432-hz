@@ -9,7 +9,7 @@ import { localize, setLocale } from '@vee-validate/i18n'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
-// import $httpMessageState from '@/libs/ToastMsg'
+import $httpMessageState from '@/libs/ToastMsg.js'
 import App from './App.vue'
 import router from './router'
 
@@ -25,7 +25,7 @@ configure({
 setLocale('zh_TW')
 
 const app = createApp(App)
-// app.config.globalProperties.$httpMessageState = $httpMessageState
+app.config.globalProperties.$httpMessageState = $httpMessageState
 app.component('VForm', Form)
 app.component('VField', Field)
 app.component('ErrorMessage', ErrorMessage)

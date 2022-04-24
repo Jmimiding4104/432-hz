@@ -26,8 +26,8 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" id="link" to="/login">
-                登入後台
+              <router-link class="nav-link" id="link" to="/Follow">
+                訂單查詢
               </router-link>
             </li>
             <li class="nav-item">

@@ -1,4 +1,5 @@
 <template>
+<IsLoading style="z-index: 1000" :active="isLoading"></IsLoading>
   <div class="cart-wrap">
     <div class="cart-link">
       <router-link class="nav-link" id="link" to="/">首頁</router-link>
@@ -19,11 +20,6 @@
         class="bi bi-check-all"
         style="background-color: rgb(197, 224, 96)"
       ></i>
-      <div
-        class="cart-line-space"
-        style="border-bottom: 5px solid rgb(197, 224, 96)"
-      ></div>
-      <i class="bi bi-wallet" style="background-color: rgb(197, 224, 96)"></i>
     </div>
     <div class="cart-products" v-if="carts.carts != 0">
       <div class="cart-products-list">
@@ -318,20 +314,23 @@ import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
+      isLoading: false,
       carts: '',
       code: ''
     }
   },
   methods: {
     getData () {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(Url)
         .then((res) => {
           this.carts = res.data.data
-          console.log(this.carts)
+          this.isLoading = false
         })
     },
     updataCart (id, qty) {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`
       const data = {
         product_id: id,
@@ -339,23 +338,32 @@ export default {
       }
       this.$http.put(Url, { data })
         .then((res) => {
-          console.log(res)
           this.getData()
+          this.$httpMessageState(res, '更新購物車')
+          this.isLoading = false
         })
         .catch((err) => {
-          console.log(err)
+          this.$httpMessageState(err, '更新購物車')
+          this.isLoading = false
         })
     },
     delCartProduct (id) {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.$http.delete(Url)
         .then((res) => {
-          console.log(res)
+          this.$httpMessageState(res, '刪除物品')
           this.getData()
           emitter.emit('get-cart')
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$httpMessageState(err, '刪除物品')
+          this.isLoading = false
         })
     },
     useCoupon (code) {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/coupon`
       const data = {
         code: code
@@ -363,19 +371,31 @@ export default {
       this.$http.post(Url, { data })
         .then((res) => {
           this.getData()
-          console.log(res)
-          console.log(this.carts)
+          this.$httpMessageState(res, '使用捐贈券')
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$httpMessageState(err, '使用捐贈券')
+          this.isLoading = false
         })
     },
     delCarts () {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`
       this.$http.delete(Url)
         .then((res) => {
           this.getData()
           emitter.emit('get-cart')
+          this.$httpMessageState(res, '清空購物車')
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$httpMessageState(err, '清空購物車')
+          this.isLoading = false
         })
     },
     useOriginalCoupon () {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/coupon`
       const data = {
         code: 'original'
@@ -383,6 +403,12 @@ export default {
       this.$http.post(Url, { data })
         .then((res) => {
           this.getData()
+          this.$httpMessageState(res, '恢復原價')
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$httpMessageState(err, '恢復原價')
+          this.isLoading = false
         })
     }
   },

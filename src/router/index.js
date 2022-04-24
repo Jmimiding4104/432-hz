@@ -26,6 +26,10 @@ const routes = [
         component: () => import('../views/Front/OrderView.vue')
       },
       {
+        path: 'Follow',
+        component: () => import('../views/Front/FollowOrder.vue')
+      },
+      {
         path: 'Complete/:id',
         component: () => import('../views/Front/CompleteView.vue')
       }
@@ -36,6 +40,13 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.body.scrollTop = 0
+  // firefox
+  document.documentElement.scrollTop = 0
+  next()
 })
 
 export default router

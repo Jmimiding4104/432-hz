@@ -1,4 +1,5 @@
 <template>
+<IsLoading style="z-index: 1000" :active="isLoading"></IsLoading>
   <div class="wrap">
     <div class="home-img">
       <div class="home-title">
@@ -72,7 +73,7 @@
             <p>
               我們所有品項皆以成本價為基數出售，我們將收取10-20%之行政費用，收取之行政費用50%將捐贈。
             </p>
-            <p>我們所有的款項將全數公布於本站，讓您放心消費。</p>
+            <p>我們所有的款項將全數公布於本機構之Facebook，讓您放心消費。</p>
           </div>
           <div class="item-container3-btn">
             <button
@@ -315,3 +316,13 @@
   height: 200px;
 }
 </style>
+
+<script>
+export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  }
+}
+</script>

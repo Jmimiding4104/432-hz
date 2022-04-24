@@ -5,22 +5,22 @@
         <router-link class="navbar-brand" to="/"><span>HOME</span></router-link>
       </li>
       <li>
-        <router-link class="navbar-brand" to="/"
-          ><span>ABOUT</span></router-link
-        >
-      </li>
-      <li>
-        <router-link class="navbar-brand" to="/"
-          ><span>QUESTION</span></router-link
-        >
-      </li>
-      <li>
         <router-link class="navbar-brand" to="/Products"
           ><span>STORE</span></router-link
         >
       </li>
       <li>
-        <router-link class="navbar-brand" to="/"><span>CART</span></router-link>
+        <router-link class="navbar-brand" to="/Cart"><span>CART</span></router-link>
+      </li>
+      <li>
+        <router-link class="navbar-brand" to="/Follow"
+          ><span>FOLLOW</span></router-link
+        >
+      </li>
+      <li>
+        <router-link class="navbar-brand" to="/"
+          ><span>LOGIN</span></router-link
+        >
       </li>
     </ul>
     <div class="footer-text">

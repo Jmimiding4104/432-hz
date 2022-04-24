@@ -1,4 +1,5 @@
 <template>
+<IsLoading style="z-index: 1000" :active="isLoading"></IsLoading>
   <div class="cart-wrap">
     <div class="cart-link">
       <router-link class="nav-link" id="link" to="/">首頁</router-link>
@@ -16,11 +17,6 @@
         class="bi bi-check-all"
         style="background-color: rgb(197, 224, 96)"
       ></i>
-      <div
-        class="cart-line-space"
-        style="border-bottom: 5px solid rgb(197, 224, 96)"
-      ></div>
-      <i class="bi bi-wallet" style="background-color: rgb(197, 224, 96)"></i>
     </div>
     <div class="order-fillin-view">
       <div class="fillin-form">
@@ -115,21 +111,23 @@
               </div>
               <div class="order-item-descript-2">
                 <p>x{{ item.qty }}{{ item.product.unit }}</p>
-                <p>${{ item.final_total }}</p>
+                <p>${{ item.total }}</p>
               </div>
             </div>
           </div>
           <div class="cart-products-list-total-price">
           <div
             class="cart-products-list-price"
-            v-if="cartDatatotal === cartDatafinal_total"
+            v-if="cartData.total === cartData.final_total"
           >
             <div class="cart-products-list-total">總金額 NT{{ cartData.total }}</div>
           </div>
           <div class="cart-products-list-sale-price" v-else>
             <div class="cart-products-list-total">原金額 NT{{ cartData.total }}</div>
             <div class="cart-products-list-final_total">
-              原金額+捐款 NT{{ parseInt(this.cartData.final_total) }}
+              捐贈金額 NT{{ parseInt(cartData.final_total) - cartData.total }}
+              <br>
+              總合金額 NT{{ parseInt(cartData.final_total) }}
             </div>
           </div>
           </div>
@@ -226,6 +224,10 @@
   margin-bottom: 1rem;
 }
 
+.fillin-products i {
+  color: rgb(75, 139, 87);
+}
+
 .fillin-products-border {
   border: 1px solid black;
   padding: 1rem;
@@ -260,6 +262,10 @@
   justify-content: space-between;
 }
 
+.cart-products-list-total {
+  padding-right: 0px !important;
+}
+
 .cart-products-list-total-price {
   display: flex;
   justify-content: flex-end;
@@ -276,9 +282,11 @@
 </style>
 
 <script>
+import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
+      isLoading: false,
       cartData: '',
       orderId: '',
       form: {
@@ -295,14 +303,17 @@ export default {
   },
   methods: {
     getData () {
+      this.isLoading = true
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http
         .get(Url)
         .then((res) => {
           this.cartData = res.data.data
+          this.isLoading = false
         })
         .catch((err) => {
-          alert(err.data.message)
+          this.$httpMessageState(err, '取得資料')
+          this.isLoading = false
         })
     },
     isPhone (value) {
@@ -319,28 +330,12 @@ export default {
         .post(Url, { data })
         .then((res) => {
           this.orderId = res.data.orderId
-          alert(res.data.message)
-          console.log(res)
+          this.$httpMessageState(res, '訂單建立')
           this.$router.push(`/Complete/${this.orderId}`)
+          emitter.emit('get-cart')
         })
         .catch((err) => {
-          console.log(err)
-        })
-    },
-    getOrder () {
-      const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/order/${this.orderId}`
-      this.$http
-        .get(Url)
-        .then((res) => {
-          this.is_paid = res.order.is_paid
-        })
-    },
-    payOrder () {
-      const apiUrl = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`
-      this.$http
-        .post(apiUrl)
-        .then((res) => {
-          this.$router.push('/Complete')
+          this.$httpMessageState(err, '訂單建立')
         })
     }
   },
