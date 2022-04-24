@@ -163,7 +163,7 @@
 }
 
 .item-container1 {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   width: 45%;
   margin-left: 2.5%;
   margin-right: 2.5%;
@@ -177,13 +177,14 @@
 
 .item-container1 h3 {
   padding-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2rem;
   font-weight: 600;
 }
 
 .item-container1 p {
   font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .item-container1-btn button {
@@ -259,7 +260,7 @@
 }
 
 .item-container3 {
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 45%;
   margin-left: 2.5%;
   margin-right: 2.5%;
@@ -272,14 +273,15 @@
 }
 
 .item-container3 h3 {
-  padding-top: 1rem;
-  margin-bottom: 2rem;
+  padding-top: 0rem;
+  margin-bottom: 0.5rem;
   font-size: 2rem;
   font-weight: 600;
 }
 
 .item-container3 p {
   font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .item-container3-btn button {
