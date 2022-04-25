@@ -9,7 +9,7 @@
     </div>
     <div class="home-container">
       <div class="container-1">
-        <h2>地球正受到各種廢棄物的侵蝕</h2>
+        <h2>地球正受各種廢棄物的侵蝕</h2>
         <p>我們邀請您一同為這片土地減輕負擔</p>
         <div class="container-img1"></div>
       </div>
@@ -225,7 +225,7 @@
 }
 
 .item-container2 h3 {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   margin-bottom: 2rem;
   font-size: 2rem;
   font-weight: 600;
@@ -316,6 +316,149 @@
   background-position: center -350px;
   width: 100%;
   height: 200px;
+}
+
+@media (max-width:1300px) {
+  .item-container1 {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width:1300px) {
+  .item-container2 {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width:1300px) {
+  .item-container3 {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width:1184px) {
+  .item-container1 h3 {
+    padding-top: 0px;
+  }
+}
+
+@media (max-width:1184px) {
+  .item-container2 {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width:1184px) {
+  .item-container3 {
+    margin-top: 0px;
+  }
+}
+
+@media (max-width:1160px) {
+  .container-2 {
+    text-align: center;
+  }
+}
+
+@media (max-width:768px) {
+  .item-1 {
+    flex-direction: column;
+  }
+}
+
+@media (max-width:768px) {
+  .item-img1{
+    width: 100%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container1-text {
+    width: 211%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container1-text h3 {
+    padding-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container1-btn button {
+    width: 211%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-2 {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width:768px) {
+  .item-img2{
+    width: 100%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container2-text {
+    width: 211%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container2-text h3 {
+    padding-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container2-btn button {
+    width: 211%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-3 {
+    flex-direction: column;
+  }
+}
+
+@media (max-width:768px) {
+  .item-img3{
+    width: 100%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container3-text {
+    width: 211%;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container3-text h3 {
+    padding-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width:768px) {
+  .item-container3-btn button {
+    width: 211%;
+  }
+}
+
+@media (max-width:620px) {
+  .home-title {
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 </style>
 

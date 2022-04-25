@@ -207,6 +207,24 @@
   padding: 1rem;
   border-radius: 5px;
 }
+
+@media (max-width:1000px) {
+  .item-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width:1000px) {
+  .item-container-img {
+    width: 100%;
+  }
+}
+
+@media (max-width:1000px) {
+  .item-container-text {
+    width: 90%;
+  }
+}
 </style>
 
 <script>

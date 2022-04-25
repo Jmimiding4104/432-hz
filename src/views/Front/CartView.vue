@@ -26,7 +26,7 @@
         <table>
           <thead>
             <tr class="cart-products-list-title">
-              <th style="width: 240px"></th>
+              <th style="width: 240px" class="cart-products-list-title-rwd-none"></th>
               <th style="width: 240px; text-align: left">名稱</th>
               <th style="width: 240px">數量</th>
               <th style="width: 240px">金額</th>
@@ -36,7 +36,7 @@
           <tbody>
             <template v-for="item in carts.carts" :key="item.id">
               <tr class="cart-products-list-content">
-                <td style="width: 60px">
+                <td style="width: 60px" class="cart-products-list-title-rwd-none">
                   <div
                     class="cart-products-list-content-img"
                     :style="{
@@ -48,7 +48,7 @@
                 <td>
                   <div class="cart-products-list-num input-group">
                     <button
-                      class="btn btn-outline-primary"
+                      class="btn btn-outline-primary cart-products-list-num-button-minus"
                       type="button"
                       @click="updataCart(item.id, item.qty - 1)"
                     >
@@ -56,7 +56,7 @@
                     </button>
                     <span>{{ item.qty }}</span>
                     <button
-                      class="btn btn-outline-primary"
+                      class="btn btn-outline-primary cart-products-list-num-button-plus"
                       type="button"
                       @click="updataCart(item.id, item.qty + 1)"
                     >
@@ -278,7 +278,7 @@
 }
 
 .cart-products-list-coupon input {
-  width: 15%;
+  width: 25%;
 }
 
 .cart-btn {
@@ -306,6 +306,56 @@
   font-size: 1.5rem;
   display: flex;
   margin: 3rem auto;
+}
+
+@media (max-width:966px) {
+  .cart-products-list {
+    margin-right: 5%;
+  }
+}
+
+@media (max-width:768px) {
+  .cart-products-list-title-rwd-none {
+    display: none;
+  }
+}
+
+@media (max-width:768px) {
+  .cart-products-list-num {
+    width: 65%;
+    margin: 0px auto;
+  }
+}
+
+@media (max-width:768px) {
+  .cart-products-list-num td{
+    width: 50%;
+    justify-content: space-around;
+  }
+}
+
+@media (max-width:768px) {
+  .cart-products-list-num span {
+    width: 25%;
+  }
+}
+
+@media (max-width:630px) {
+  .cart-products-list-num-button-minus {
+    padding: 4px;
+  }
+}
+
+@media (max-width:630px) {
+  .cart-products-list-num-button-plus {
+    padding: 2px;
+  }
+}
+
+@media (max-width:570px) {
+  .cart-products-list-num span {
+    width: 35%;
+  }
 }
 </style>
 

@@ -10,28 +10,24 @@
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          @click="toggleNavHam()"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse navbar-list-rwd-991" ref="collapse">
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <router-link class="nav-link" id="link" to="/Products">
+              <router-link class="nav-link" id="link" to="/Products" @click="closeNavHam()">
                 產品列表
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" id="link" to="/Follow">
+              <router-link class="nav-link" id="link" to="/Follow" @click="closeNavHam()">
                 訂單查詢
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" id="link" to="/Cart">
+              <router-link class="nav-link" id="link" to="/Cart" @click="closeNavHam()">
                 <i class="bi bi-bag">
                   <span class="position-absolute top-10 start-90 translate-middle badge rounded-pill bg-danger">
                     {{carts.length}}
@@ -79,11 +75,34 @@
   position: relative;
   top: 20px;
 }
+
+@media (max-width:991px) {
+  .navbar-list-rwd-991 {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width:991px) {
+  .navbar-list-rwd-991 ul li {
+    text-align: center;
+  }
+}
+
+@media (max-width:991px) {
+  .navbar-list-rwd-991 ul li span {
+    position: absolute;
+    left: 51.5%;
+    top: 76%;
+  }
+}
 </style>
 
 <script>
 import emitter from '@/libs/emitter'
+import CollapseHam from '@/libs/CollapseHam.vue'
 export default {
+  mixins: [CollapseHam],
   data () {
     return {
       carts: {}

@@ -21,7 +21,7 @@
     <div class="order-fillin-view">
       <div class="fillin-form">
         <div class="fillin-form-title">填寫聯絡與寄送資料</div>
-        <VForm ref="form" v-slot="{ errors }">
+        <VForm class="fillin-form-container" ref="form" v-slot="{ errors }">
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <VField
@@ -102,7 +102,7 @@
         <div class="fillin-products-border">
           <div class="order-item" v-for="item in cartData.carts" :key="item.id">
             <div
-              class="order-img"
+              class="order-img order-img-rwd534-del"
               :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
             ></div>
             <div class="order-item-descript">
@@ -278,6 +278,66 @@
   justify-content: space-between;
   padding-left: 5%;
   padding-right: 5%;
+}
+
+@media (max-width:965px) {
+  .cart-link {
+    margin-left: 5%;
+  }
+}
+
+@media (max-width:965px) {
+  .cart-wrap {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+
+@media (max-width:965px) {
+  .order-fillin-view {
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width:965px) {
+  .fillin-products {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media (max-width:965px) {
+  .fillin-form {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media (max-width:965px) {
+  .fillin-products h3 {
+    width: 100%;
+  }
+}
+
+@media (max-width:965px) {
+  .fillin-form-title {
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
+@media (max-width:965px) {
+  .fillin-form-container {
+    width: 100%;
+  }
+}
+
+@media (max-width:533px) {
+  .order-img-rwd534-del {
+    display: none;
+  }
 }
 </style>
 

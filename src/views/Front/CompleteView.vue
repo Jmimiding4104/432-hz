@@ -245,6 +245,39 @@
   color: white;
   transition: 0.5s;
 }
+
+@media (max-width:1035px) {
+  .complete-section-table table th{
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width:1035px) {
+  .complete-section-table table td{
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width:965px) {
+  .complete-section-table table {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+}
+
+@media (max-width:725px) {
+  .complete-section {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+}
+
+@media (max-width:635px) {
+  .complete-section {
+    margin-right: 2%;
+    margin-left: 2%;
+  }
+}
 </style>
 
 <script>

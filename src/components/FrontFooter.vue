@@ -61,8 +61,8 @@
 }
 
 .footer-text {
-  margin-left: 38%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   color: aliceblue;
 }
@@ -81,5 +81,18 @@
   text-align: center;
   padding: 1rem;
   margin-bottom: 0px;
+}
+
+@media (max-width:720px) {
+  .footer ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width:720px) {
+  .footer ul li {
+    margin-top: 0.5rem;
+  }
 }
 </style>
