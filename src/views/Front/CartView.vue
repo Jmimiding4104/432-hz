@@ -360,7 +360,6 @@
 </style>
 
 <script>
-import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
@@ -369,6 +368,7 @@ export default {
       code: ''
     }
   },
+  inject: ['emitter'],
   methods: {
     getData () {
       this.isLoading = true
@@ -393,7 +393,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '更新購物車')
+          this.$httpMessageState(err.response, '更新購物車')
           this.isLoading = false
         })
     },
@@ -404,11 +404,11 @@ export default {
         .then((res) => {
           this.$httpMessageState(res, '刪除物品')
           this.getData()
-          emitter.emit('get-cart')
+          this.emitter.emit('get-cart')
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '刪除物品')
+          this.$httpMessageState(err.response, '刪除物品')
           this.isLoading = false
         })
     },
@@ -425,8 +425,9 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '使用捐贈券')
           this.isLoading = false
+          console.log(err)
+          this.$httpMessageState(err.response, '使用捐贈券')
         })
     },
     delCarts () {
@@ -435,12 +436,12 @@ export default {
       this.$http.delete(Url)
         .then((res) => {
           this.getData()
-          emitter.emit('get-cart')
+          this.emitter.emit('get-cart')
           this.$httpMessageState(res, '清空購物車')
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '清空購物車')
+          this.$httpMessageState(err.response, '清空購物車')
           this.isLoading = false
         })
     },
@@ -457,7 +458,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '恢復原價')
+          this.$httpMessageState(err.response, '恢復原價')
           this.isLoading = false
         })
     }

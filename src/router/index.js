@@ -34,6 +34,28 @@ const routes = [
         component: () => import('../views/Front/CompleteView.vue')
       }
     ]
+  },
+  {
+    path: '/Login',
+    component: () => import('../views/LoginView.vue')
+  },
+  {
+    path: '/Admin',
+    component: () => import('../views/Admin/DashboardView.vue'),
+    children: [
+      {
+        path: 'AdminProducts',
+        component: () => import('../views/Admin/AdminProducts.vue')
+      },
+      {
+        path: 'AdminCouple',
+        component: () => import('../views/Admin/AdminCoupon.vue')
+      },
+      {
+        path: 'AdminOrder',
+        component: () => import('../views/Admin/AdminOrder.vue')
+      }
+    ]
   }
 ]
 

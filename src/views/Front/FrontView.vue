@@ -15,6 +15,9 @@
 import FrontNavbar from '@/components/FrontNavbar.vue'
 import FrontFooter from '@/components/FrontFooter.vue'
 export default {
+  data () {
+    return {}
+  },
   components: {
     FrontNavbar,
     FrontFooter

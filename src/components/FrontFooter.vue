@@ -18,7 +18,7 @@
         >
       </li>
       <li>
-        <router-link class="navbar-brand" to="/"
+        <router-link class="navbar-brand" to="/Login"
           ><span>LOGIN</span></router-link
         >
       </li>

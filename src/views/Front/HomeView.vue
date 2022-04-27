@@ -1,6 +1,5 @@
 <template>
 <IsLoading style="z-index: 1000" :active="isLoading"></IsLoading>
-  <div class="wrap">
     <div class="home-img">
       <div class="home-title">
         <h2>432Hz是宇宙最和諧的頻率</h2>
@@ -92,7 +91,6 @@
         <div class="container-img2"></div>
       </div>
     </div>
-  </div>
 </template>
 
 <style>

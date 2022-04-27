@@ -228,7 +228,6 @@
 </style>
 
 <script>
-import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
@@ -237,6 +236,7 @@ export default {
       qty: ''
     }
   },
+  inject: ['emitter'],
   methods: {
     getData () {
       this.isLoading = true
@@ -248,7 +248,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '載入資料')
+          this.$httpMessageState(err.response, '載入資料')
         })
     },
     addToCart (id, qty = 1) {
@@ -262,12 +262,12 @@ export default {
       this.$http.post(Url, { data })
         .then((res) => {
           this.isLoading = ''
-          emitter.emit('get-cart')
+          this.emitter.emit('get-cart')
           this.$httpMessageState(res, '加入購物車')
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '加入購物車')
+          this.$httpMessageState(err.response, '加入購物車')
           this.isLoading = false
         })
     }

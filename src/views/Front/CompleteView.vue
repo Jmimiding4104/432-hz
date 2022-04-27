@@ -309,7 +309,7 @@ export default {
           this.getData()
         })
         .catch((err) => {
-          this.$httpMessageState(err, '付款')
+          this.$httpMessageState(err.response, '付款')
         })
     }
   },

@@ -13,17 +13,10 @@
   </div>
 </template>
 
-<style>
-.toast-container {
-  position: relative;
-  top: 80px;
-  right: 10px;
-}
-</style>
-
 <script>
 import emitter from '@/libs/emitter'
 export default {
+  inject: ['emitter'],
   data () {
     return {
       message: []

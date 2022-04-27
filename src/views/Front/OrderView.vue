@@ -342,7 +342,6 @@
 </style>
 
 <script>
-import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
@@ -361,6 +360,7 @@ export default {
       is_paid: ''
     }
   },
+  inject: ['emitter'],
   methods: {
     getData () {
       this.isLoading = true
@@ -372,7 +372,7 @@ export default {
           this.isLoading = false
         })
         .catch((err) => {
-          this.$httpMessageState(err, '取得資料')
+          this.$httpMessageState(err.response, '取得資料')
           this.isLoading = false
         })
     },
@@ -392,10 +392,10 @@ export default {
           this.orderId = res.data.orderId
           this.$httpMessageState(res, '訂單建立')
           this.$router.push(`/Complete/${this.orderId}`)
-          emitter.emit('get-cart')
+          this.emitter.emit('get-cart')
         })
         .catch((err) => {
-          this.$httpMessageState(err, '訂單建立')
+          this.$httpMessageState(err.response, '訂單建立')
         })
     }
   },
