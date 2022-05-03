@@ -33,6 +33,18 @@
       </p>
       <p>服務時間：09：00 ~ 18：00</p>
     </div>
+    <div class="footer-icon">
+      <div class="icon-item">
+        <a href="https://www.facebook.com/432Hz-100314029349414/?ref=page_internal">
+          <i class="bi bi-facebook"></i>
+        </a>
+      </div>
+      <div class="icon-item">
+        <a href="https://github.com/Jmimiding4104/432-hz">
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+    </div>
     <div class="copyright">
       <p>Copyright © 2022 Jmimiding4104 此網頁僅個人作品，並無任何商業行為</p>
     </div>
@@ -76,10 +88,25 @@
   color: aliceblue;
 }
 
+.footer-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-item {
+  margin: 0px 0.5rem;
+}
+
+.icon-item i {
+  color: aliceblue;
+  font-size: 1.5rem;
+}
+
 .footer .copyright p {
   color: aliceblue;
   text-align: center;
   padding: 1rem;
+  padding-top: 0px;
   margin-bottom: 0px;
 }
 

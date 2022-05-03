@@ -34,7 +34,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <div type="button" class="dashboard-navbar-logout-btn" @click="logOut()">
+              <div type="button" class="dashboard-navbar-logout-btn" @click="openModal()">
                 登出
                 <i class="bi bi-door-closed"></i>
               </div>
@@ -44,6 +44,7 @@
       </div>
     </nav>
   </div>
+  <LogoutModal ref="LogoutModal"/>
 </template>
 
 <style>
@@ -119,18 +120,16 @@
 </style>
 
 <script>
+import LogoutModal from '@/components/admin/modal/LogoutModal'
+import CollapseHam from '@/libs/CollapseHam.vue'
 export default {
+  mixins: [CollapseHam],
+  components: {
+    LogoutModal
+  },
   methods: {
-    logOut () {
-      this.$http
-        .post(`${process.env.VUE_APP_API}/logout`)
-        .then((res) => {
-          this.$httpMessageState(res, '登出')
-          this.$router.push('/')
-        })
-        .catch((err) => {
-          this.$httpMessageState(err.response, '登出')
-        })
+    openModal () {
+      this.$refs.LogoutModal.openModal()
     }
   }
 }

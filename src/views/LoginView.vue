@@ -2,6 +2,7 @@
 <FrontNavbar class="FrontNavbar" />
   <div class="login-container">
     <div class="row justify-content-center">
+      <div class="login-top-space"></div>
       <h1 class="h3 mb-3 font-weight-normal">
         請先登入
       </h1>
@@ -31,8 +32,8 @@
 </template>
 
 <style>
-.login-container {
-  padding-top: 3rem;
+.login-top-space {
+  height: 6rem;
 }
 
 .login-container h1 {

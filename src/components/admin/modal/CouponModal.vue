@@ -21,7 +21,9 @@
             <input type="text" class="form-control" id="coupon_code" placeholder="請輸入優惠碼"  v-model="tempCoupons.code">
           </div>
           <div class="mb-3">
-            <label for="due_date">到期日{{due_date}}</label>
+            <label for="due_date">到期日
+              <span v-show="tempCoupons.due_date > 0">{{due_date}}</span>
+            </label>
             <input type="date" class="form-control" id="due_date" v-model="due_date">
           </div>
           <div class="mb-3">

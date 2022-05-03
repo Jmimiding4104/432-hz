@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 <tr v-for="item in coupons" :key="item.id">
-                    <td>{{item.code}}</td>
+                    <td>{{item.title}}</td>
                     <td>{{item.percent}}%</td>
                     <td>{{new Date(item.due_date * 1000).toLocaleDateString()}}</td>
                     <td>

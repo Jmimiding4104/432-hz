@@ -44,6 +44,9 @@
               <span class="input-group-text">{{product.unit}}</span>
             </div>
           </div>
+          <!--<div class="product-btn" v-if='product.title == "加入志工行列"'>
+            <button class="btn btn-primary" type="button" @click="volunteerAddToCart(product.id, qty)">清空購物車並加入志工行列</button>
+          </div>-->
           <div class="product-btn">
             <button class="btn btn-primary" type="button" @click="addToCart(product.id, qty)">加入購物車</button>
           </div>
@@ -89,7 +92,7 @@
 
 .item-container-img {
   width: 45%;
-  height: 27rem;
+  height: 504px;
   background-position: center;
   background-size: cover;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -257,11 +260,9 @@ export default {
         product_id: id,
         qty
       }
-      this.isLoading = id
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.post(Url, { data })
         .then((res) => {
-          this.isLoading = ''
           this.emitter.emit('get-cart')
           this.$httpMessageState(res, '加入購物車')
           this.isLoading = false
@@ -271,6 +272,32 @@ export default {
           this.isLoading = false
         })
     }
+    /* volunteerAddToCart (id, qty = 1) {
+      this.isLoading = true
+      const DelCart = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/carts`
+      const data = {
+        product_id: id,
+        qty
+      }
+      const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.delete(DelCart)
+        .then((res) => {
+          this.$httpMessageState(res, '刪除購物車')
+        })
+        .catch((err) => {
+          this.$httpMessageState(err.response, '刪除購物車')
+        })
+      this.$http.post(Url, { data })
+        .then((res) => {
+          this.emitter.emit('get-cart')
+          this.$httpMessageState(res, '加入購物車')
+          this.isLoading = false
+        })
+        .catch((err) => {
+          this.$httpMessageState(err.response, '加入購物車')
+          this.isLoading = false
+        })
+    } */
   },
   mounted () {
     this.getData()

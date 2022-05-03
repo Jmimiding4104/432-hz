@@ -27,6 +27,11 @@
               </router-link>
             </li>
             <li class="nav-item">
+              <router-link class="nav-link" id="link" to="/Product/-N12zdPYO8jPUcn-Q4nR" @click="closeNavHam()">
+                加入我們
+              </router-link>
+            </li>
+            <li class="nav-item">
               <router-link class="nav-link" id="link" to="/Cart" @click="closeNavHam()">
                 <i class="bi bi-bag">
                   <span class="position-absolute top-10 start-90 translate-middle badge rounded-pill bg-danger">
