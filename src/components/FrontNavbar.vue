@@ -98,7 +98,7 @@
   .navbar-list-rwd-991 ul li span {
     position: absolute;
     left: 51.5%;
-    top: 76%;
+    top: 80%;
   }
 }
 </style>

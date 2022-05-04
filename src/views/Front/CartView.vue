@@ -465,6 +465,7 @@ export default {
   },
   mounted () {
     this.getData()
+    this.emitter.on('get-cart', () => this.getData())
   }
 }
 </script>

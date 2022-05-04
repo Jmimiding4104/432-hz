@@ -4,6 +4,7 @@
   <div type="button" @click="goTop()">
     <i class="bi bi-arrow-up-circle-fill"></i>
   </div>
+  <OffcanvasView />
   <FrontFooter />
 </template>
 
@@ -25,15 +26,15 @@
 <script>
 import FrontNavbar from '@/components/FrontNavbar.vue'
 import FrontFooter from '@/components/FrontFooter.vue'
-// import OffcanvasView from '@/components/OffcanvasView-test.vue'
+import OffcanvasView from '@/components/OffcanvasView-test.vue'
 export default {
   data () {
     return {}
   },
   components: {
     FrontNavbar,
-    FrontFooter
-    // OffcanvasView
+    FrontFooter,
+    OffcanvasView
   },
   methods: {
     goTop () {
