@@ -1,11 +1,18 @@
 <template>
   <div class="offcanvas-view" style="z-index: 999">
+    <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+      {{favoriteList.length}}
+        <span class="visually-hidden">unread messages</span>
+    </span>
     <button title="收藏" class="btn btn-success offcanvas-view-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
       <i class="bi bi-bag-heart"></i>
     </button>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-          <h5 id="offcanvasRightLabel">我的收藏</h5>
+          <div class="offcanvas-header-title">
+            <h5 id="offcanvasRightLabel">我的收藏</h5>
+            <button type="button" class="btn btn-outline-danger" @click="clearfavorite()">清空最愛</button>
+          </div>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
       <div class="offcanvas-body">
@@ -23,7 +30,7 @@
             <div class="offcanvas-products-select-btn">
               <div class="offcanvas-products-select">
                 <select class="form-select" v-model="item.qty">
-                  <option value="" disabled selected>----</option>
+                  <option value="" disabled selected>--請選擇數量--</option>
                   <option :value="num" v-for="num in 100" :key="`${num}${item.id}`">{{num}}</option>
                 </select>
               </div>
@@ -56,6 +63,14 @@
 
 .offcanvas-view-btn {
   border-radius: 5px;
+}
+
+.offcanvas-header-title {
+  display: flex;
+}
+
+.offcanvas-header-title button {
+  margin-left: 1rem;
 }
 
 .offcanvas-view-btn i {
@@ -131,6 +146,7 @@ export default {
         })
     },
     getFavoriteList () {
+      this.favorite = JSON.parse(localStorage.getItem('favorite')) || []
       // 與所以產品比對，有的就提取出來
       this.favoriteList = this.products.filter((item) => this.favorite.indexOf(item.id) > -1)
     },
@@ -141,6 +157,8 @@ export default {
       } else {
         this.favorite.splice(favoriteIndex, 1)
       }
+      this.getData()
+      this.emitter.emit('getFavoriteProducts')
     },
     addToCart (id, qty = 1) {
       this.isLoading = true
@@ -159,6 +177,11 @@ export default {
           this.$httpMessageState(err.response, '加入購物車')
           this.isLoading = false
         })
+    },
+    clearfavorite () {
+      this.favorite = []
+      this.getData()
+      this.emitter.emit('getFavoriteProducts')
     }
   },
   watch: {
@@ -174,6 +197,7 @@ export default {
     this.offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
       return new Offcanvas(offcanvasEl)
     })
+    this.emitter.on('getFavorite', () => this.getData())
     this.getData()
   }
 }

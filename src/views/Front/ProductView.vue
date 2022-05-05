@@ -34,21 +34,31 @@
             價格{{product.price}}/{{product.unit}}
           </div>
         </div>
-        <div class="product-seletion">
-          <div class="product-numbers">
-            <div class="input-group">
-              <select class="form-select" v-model="qty">
-                <option value="" disabled selected>--請選擇--</option>
-                <option :value="num" v-for="num in 100" :key="`${num}${product.id}`">{{num}}</option>
-              </select>
-              <span class="input-group-text">{{product.unit}}</span>
+        <div class="product-seletion-section">
+          <div class="product-seletion-favorite" title="加入最愛">
+            <div class="product-img-favorite" @click="toggleFavorite(product.id)" v-if="favorite.includes(product.id)">
+                <i class="bi bi-heart-fill"></i>
+            </div>
+            <div class="product-img-favorite-join" @click="toggleFavorite(product.id)" v-else>
+                <i class="bi bi-heart"></i>
             </div>
           </div>
-          <!--<div class="product-btn" v-if='product.title == "加入志工行列"'>
-            <button class="btn btn-primary" type="button" @click="volunteerAddToCart(product.id, qty)">清空購物車並加入志工行列</button>
-          </div>-->
-          <div class="product-btn">
-            <button class="btn btn-primary" type="button" @click="addToCart(product.id, qty)">加入購物車</button>
+          <div class="product-seletion">
+            <div class="product-numbers">
+              <div class="input-group">
+                <select class="form-select" v-model="qty">
+                  <option value="" disabled selected>--請選擇--</option>
+                  <option :value="num" v-for="num in 100" :key="`${num}${product.id}`">{{num}}</option>
+                </select>
+                <span class="input-group-text">{{product.unit}}</span>
+              </div>
+            </div>
+            <!--<div class="product-btn" v-if='product.title == "加入志工行列"'>
+              <button class="btn btn-primary" type="button" @click="volunteerAddToCart(product.id, qty)">清空購物車並加入志工行列</button>
+            </div>-->
+            <div class="product-btn">
+              <button class="btn btn-primary" type="button" @click="addToCart(product.id, qty)">加入購物車</button>
+            </div>
           </div>
         </div>
       </div>
@@ -152,6 +162,28 @@
   font-size: 2rem;
 }
 
+.product-seletion-section {
+  display: flex;
+  justify-content: end;
+  position: relative;
+}
+
+.product-seletion-favorite i {
+  font-size: 2rem;
+  position: absolute;
+  top: 43px;
+  right: 330px;
+  cursor: pointer;
+}
+
+.product-img-favorite i {
+  color: red;
+}
+
+.product-img-favorite-join i:hover {
+  -webkit-text-stroke: 1px red;
+}
+
 .product-seletion {
   display: flex;
   flex-direction: column;
@@ -236,7 +268,8 @@ export default {
     return {
       isLoading: false,
       product: {},
-      qty: ''
+      qty: '',
+      favorite: JSON.parse(localStorage.getItem('favorite')) || []
     }
   },
   inject: ['emitter'],
@@ -247,11 +280,13 @@ export default {
       const Url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/product/${id}`
       this.$http.get(Url)
         .then((res) => {
+          this.favorite = JSON.parse(localStorage.getItem('favorite')) || []
           this.product = res.data.product
           this.isLoading = false
         })
         .catch((err) => {
           this.$httpMessageState(err.response, '載入資料')
+          this.isLoading = false
         })
     },
     addToCart (id, qty = 1) {
@@ -271,6 +306,15 @@ export default {
           this.$httpMessageState(err.response, '加入購物車')
           this.isLoading = false
         })
+    },
+    toggleFavorite (id) {
+      const favoriteIndex = this.favorite.findIndex((item) => item === id)
+      if (favoriteIndex === -1) {
+        this.favorite.push(id)
+      } else {
+        this.favorite.splice(favoriteIndex, 1)
+      }
+      this.emitter.emit('getFavorite')
     }
     /* volunteerAddToCart (id, qty = 1) {
       this.isLoading = true
@@ -299,8 +343,17 @@ export default {
         })
     } */
   },
+  watch: {
+    favorite: {
+      handler () {
+        localStorage.setItem('favorite', JSON.stringify(this.favorite))
+      },
+      deep: true
+    }
+  },
   mounted () {
     this.getData()
+    this.emitter.on('getFavoriteProducts', () => this.getData())
   }
 }
 </script>

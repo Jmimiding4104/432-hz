@@ -238,6 +238,7 @@ export default {
       this.$http.get(Url)
         .then((res) => {
           this.products = res.data.products
+          this.favorite = JSON.parse(localStorage.getItem('favorite')) || []
           this.isLoading = false
         })
         .catch((err) => {
@@ -269,6 +270,7 @@ export default {
       } else {
         this.favorite.splice(favoriteIndex, 1)
       }
+      this.emitter.emit('getFavorite')
     }
   },
   watch: {
@@ -281,6 +283,7 @@ export default {
   },
   mounted () {
     this.getData()
+    this.emitter.on('getFavoriteProducts', () => this.getData())
   }
 }
 </script>

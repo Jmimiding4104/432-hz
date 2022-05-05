@@ -4,7 +4,9 @@
   <div type="button" @click="goTop()">
     <i class="bi bi-arrow-up-circle-fill"></i>
   </div>
+  <div>
   <OffcanvasView />
+  </div>
   <FrontFooter />
 </template>
 
