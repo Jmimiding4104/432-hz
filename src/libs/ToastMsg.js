@@ -3,7 +3,7 @@ import emitter from './emitter.js'
 export default function (res, title = '更新') {
   if (res.data.success) {
     emitter.emit('toast-msg', {
-      style: 'success',
+      style: 'primary',
       title: `${title}成功`
     })
   } else {

@@ -104,9 +104,9 @@
 </style>
 
 <script>
-import emitter from '@/libs/emitter'
 import CollapseHam from '@/libs/CollapseHam.vue'
 export default {
+  inject: ['emitter'],
   mixins: [CollapseHam],
   data () {
     return {
@@ -124,7 +124,7 @@ export default {
   },
   mounted () {
     this.getData()
-    emitter.on('get-cart', () => this.getData())
+    this.emitter.on('get-cart', () => this.getData())
   }
 }
 </script>

@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import emitter from '@/libs/emitter'
 export default {
   inject: ['emitter'],
   data () {
@@ -33,7 +32,7 @@ export default {
     }
   },
   mounted () {
-    emitter.on('toast-msg', (msg) => {
+    this.emitter.on('toast-msg', (msg) => {
       const { style, title, content } = msg
       this.message.push({ style, title, content })
       this.toastShow()
